@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <tr>
+        <td>
+            <img ng-src=" {{rutaImagen(datos.poster_path) }}" class="img-rounded"/>
+
+        </td>
+
+        <td>
+            <a href="" ng-click="clickEnMedia(datos.id)">{{datos.title}}</a>
+        </td>
+
+        <td>
+            {{datos.release_date | date:'dd/MM/yyyy'}}
+        </td>
+
+    </tr>
+</body>
+</html>

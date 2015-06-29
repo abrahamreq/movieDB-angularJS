@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<header>
+   <h4> {{pelicula.title}} </h4>
+    <votacion media="{{pelicula.vote_average}}"></votacion>
+    <img ng-src="{{rutaImagen(pelicula.poster_path)}}" class="img-rounded" />
+    <generos coleccion="pelicula.genres"></generos>
+</header>
+</body>
+</html>

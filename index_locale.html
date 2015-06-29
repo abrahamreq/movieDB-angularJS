@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="vendors/angular.js"></script>
+    <script src="vendors/tmhDynamicLocale.js"></script>
+    <script src="vendors/angular-translate.js"></script>
+
+</head>
+<body ng-app="i18n">
+
+<div ng-controller="LocaleController">
+
+    <!-- Traducción como filro -->
+
+    <h1> {{'tituloH1' | translate }} </h1>
+
+    <!-- Traduccion con directiva -->
+
+    <h2 translate>tituloH2</h2>
+
+    <!-- Traduccion como servicio -->
+
+    <h3></h3>
+
+    <div> Divisa: {{divisa | currency }} </div>
+    <div> Divisa: {{fecha | date }} </div>
+    <div> {{frase | uppercase }}</div>
+
+    <button ng-click="intercambiarLocale()">Intercambiar locale</button>
+
+</div>
+
+<script>
+
+    angular.module("i18n", ["tmh.dynamicLocale","pascalprecht.translate"]);
+
+    angular.module("i18n").config(["tmhDynamicLocaleProvider", function(tmhDynamicLocaleProvider){
+
+        tmhDynamicLocaleProvider.localeLocationPattern("vendors/angular-locale_{{ locale }}.js");
+
+    }]);
+
+    angular.module("i18n").config(["$translateProvider", function($translateProvider){
+
+        $translateProvider.translations("es-es",{
+            "tituloH1":"Jugando con mi i18n",
+            "tituloH2":"Es es un subtitulo",
+            "tituloH3":"Y esto otro mas..."
+
+        });
+
+        $translateProvider.translations("en-us",{
+            "tituloH1":"Playing with i18n",
+            "tituloH2":"This is a subtitle",
+            "tituloH3":"And this is another one"
+
+        });
+
+        $translateProvider.preferredLanguage("es-es");
+
+    }]);
+
+    angular.module("i18n").controller("LocaleController",
+            ["$scope","tmhDynamicLocale","$translate", function ($scope,tmhDynamicLocale,$translate) {
+
+        var locale = "es-es";
+        tmhDynamicLocale.set(locale);
+
+        $scope.divisa = 12223.456;
+        $scope.fecha = new Date().getTime();
+        $scope.frase = "todo en mayuscula";
+
+        $scope.intercambiarLocale = function () {
+            locale = locale == "es-es" ? "en-us" : "es-es";
+            tmhDynamicLocale.set(locale);
+            $translate.use(locale);
+
+        }
+
+    }]);
+
+</script>
+
+</body>
+</html>
